@@ -13,7 +13,38 @@
 	 						fn:function(){},    ====>{fn(){},age}
 	 						age:age
 	 					}
+		2.ES6面向对象写法：
+			class 类名 {
+				constructor(name,age){
+					属性放在constructor里面
+				}
+				
+				say(){
+					方法放在类中即可。
+				}
+			}
+		注意：
+			如果使用class的方式写类，那么类的prototype是不能被改写的，也就是说不可以混着写
+			Person.prototype = {}
 			
+		3.ES6面向对象继承：
+			class 子类 extends 父类 {
+				constructor(name,age,job){
+					super(name,age);
+				}
+				kuangfu(){
+					//子类自己的方法
+				}
+				
+			}	
+		注意：
+			如果要添加子类自己的属性，那么需要把属性放在super()下面不然会报错。
+			子类必须在constructor方法中调用super方法，否则新建实例时会报错。
+			 这是因为子类没有自己的this对象，而是继承父类的this对象，然后对其进行加工。如果不调用super方法，子类就得不到this对象。
+			ES5的继承，实质是先创造子类的实例对象this，然后再将父类的方法添加到this上面（Parent.apply(this)）。
+			ES6的继承机制完全不同，实质是先创造父类的实例对象this（所以必须先调用super方法），然后再用子类的构造函数修改this。
+			在子类的构造函数中，只有调用super之后，才可以使用this关键字，否则会报错。
+			这是因为子类实例的构建，是基于对父类实例加工，只有super方法才能返回父类实例。
 		-->
 	</body>
 </html>

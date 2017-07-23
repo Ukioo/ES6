@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#box,#box2{
+				width:100px;
+				height: 100px;
+				background: red;
+				position: absolute;
+				top:0;
+				left:0;
+			}
+			#box2{
+				left:200px;
+				top:0;
+				background: yellow;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box"></div>
+		<div id="box2"></div>
+		<script type="text/javascript">
+			class Drag{
+				constructor(id){
+					this.box = document.getElementById(id);
+					this.disX = 0;
+					this.disY = 0;
+					var _this = this;
+					this.init(_this);
+				}
+				init(_this){
+					this.box.onmousedown = function(ev){
+						_this.down(ev);
+						ev.preventDefault();
+					}
+				}
+				down(ev){
+					this.disX = ev.clientX - this.box.offsetLeft;
+					this.disY = ev.clientY - this.box.offsetTop;
+					var _this = this;
+					document.onmousemove = function(ev){
+						_this.move(ev);
+					}
+					document.onmouseup = function(ev){
+						_this.up();
+					}
+				}
+				move(ev){
+					this.box.style.left = ev.clientX - this.disX +'px';
+					this.box.style.top = ev.clientY - this.disY +'px';
+				}
+				up(){
+					document.onmousemove = document.onmouseup = null;
+				}
+			}
+			//drag2,禁止超出屏幕
+			class Drag2 extends Drag{
+				constructor(id){
+					super(id);
+					this.l = this.t = 0;
+				}
+				move(ev){
+					this.l = ev.clientX - this.disX;
+					this.t = ev.clientY - this.disY;
+					if(this.l<0){
+						this.l = 0
+					}else if(this.l>window.innerWidth - this.box.offsetWidth){
+						this.l = window.innerWidth - this.box.offsetWidth
+					}
+					if(this.t<0){
+						this.t = 0
+					}else if(this.t>window.innerHeight - this.box.offsetHeight){
+						this.t = window.innerHeight - this.box.offsetHeight
+					}
+					this.box.style.left = this.l +'px';
+					this.box.style.top = this.t+'px';
+				}
+				
+			}
+			var d1 = new Drag('box');
+			var d2 = new Drag2('box2');
+		</script>
+	</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+		//******普通面向对象写法********
+			/*function Person(name,age){
+				this.name = name;
+				this.age = age;
+			}
+			Person.prototype.say = function(){
+				alert('我是'+this.name);
+			}
+			Person.prototype.running = function(){
+				alert('我今年'+this.age+'我会跑')
+			}
+			var p = new Person('白菜',18)
+			p.say()
+			p.running();*/
+		//***********************************
+		
+		//*********ES6面向对象class类的写法*************
+			class Person{
+				//构造方法，实例化的时候将会被调用，如果不指定，那么会有一个不带参数的默认构造函数.
+				constructor(name,age){
+					this.name = name;
+					this.age = age;
+				}
+				say(){
+					alert('我是ES6的名字：'+this.name);
+				}
+				running(){
+					alert('我今年'+this.age+'我会跑')
+				}
+			}
+		//***************不算错********************
+//			Person.prototype.running = function(){
+//				alert('我今年'+this.age+'我会跑')
+//			}
+		//******************************************
+
+		//************误区**************************
+			//如果用class方法写类，那么类的prototype是不可以被改写的，会报错
+//			Person.prototype={
+//				constructor:Person,
+//				running(){
+//					alert('我今年'+this.age+'我会跑')
+//				}
+//			}
+		//********************************************
+		
+		//*********ES6类式继承************
+			class Person2 extends Person{
+				//hobbies是子类自己的属性，name,age等方法都是继承父类的
+				constructor(name,age,hobbies){
+				/*子类必须在constructor方法中调用super方法，否则新建实例时会报错。
+					 这是因为子类没有自己的this对象，而是继承父类的this对象，然后对其进行加工。如果不调用super方法，子类就得不到this对象。
+					ES5的继承，实质是先创造子类的实例对象this，然后再将父类的方法添加到this上面（Parent.apply(this)）。
+					ES6的继承机制完全不同，实质是先创造父类的实例对象this（所以必须先调用super方法），然后再用子类的构造函数修改this。
+					在子类的构造函数中，只有调用super之后，才可以使用this关键字，否则会报错。
+					这是因为子类实例的构建，是基于对父类实例加工，只有super方法才能返回父类实例。
+				*/
+				//	this.hobbies = hobbies  //错误
+					super(name,age)
+					this.hobbies = hobbies;  //正确
+				}
+				other(){
+					alert('我的爱好是:'+this.hobbies);
+				}
+			}
+		//********************************
+			var p = new Person('白菜2',18);
+			var p2 = new Person2('白菜3号',20,'吃')
+			p2.say();
+			p2.other();
+			p2.running()
+			console.log(p2)
+		//**************************************
+		</script>
+	</body>
+</html>
