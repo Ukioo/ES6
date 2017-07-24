@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+		//箭头函数总结：
+				//	var fn = (a) => a;//定义个fn的函数，传入一个a的形参return a
+				//	var fn = a => a;//只有一个参数的时候可以省略括号
+				//	var fn = (a,b) => a+b;//如果有多个参数()不能省略
+	//				var fn = ()=>{
+	//					var a = 2;
+	//					var b = a+1;
+	//					return b;
+	//				}
+		/*		1.如果箭头函数不需要参数或需要多个参数，就使用一个圆括号代表参数部分。
+				2.如果箭头函数的代码块部分多于一条语句，就要使用大括号将它们括起来，并且使用return语句返回。
+				3.箭头函数的this默认永远指向定义的父级。
+					注意：事件绑定函数不用使用箭头函数
+					
+				使用注意点
+				箭头函数有几个使用注意点。
+				
+				（1）函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。
+				
+				（2）不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误。
+				
+				（3）不可以使用arguments对象，该对象在函数体内不存在。如果要用，可以用Rest参数代替。
+				
+				（4）不可以使用yield命令，因此箭头函数不能用作Generator函数。
+				
+				this指向的固定化，并不是因为箭头函数内部有绑定this的机制，实际原因是箭头函数根本没有自己的this,导致内部的this就是外层代码块的this。
+				正是因为它没有this，所以也就不能用作构造函数。
+				
+				一个箭头函数与一个普通的函数在两个方面不一样：
+					下列变量的构造是词法的： arguments ， super ， this ， new.target
+					不能被用作构造函数：没有内部方法 [[Construct]] （该方法允许普通的函数通过 new 调用），也没有 prototype 属性。
+					因此， new (() => {}) 会抛出错误。
+		*/
+		/*
+			//1
+				var fn = function(){
+					return n
+				}
+			//1-ES6箭头函数:
+				var fn = ()=>n
+			//2
+				var fn = function(n){
+					return n;
+				}
+			//2-ES6箭头函数:
+				var fn = n =>n
+			//3:
+				var fn = function(a,b){
+					return a+b;
+				}
+			//3-ES6箭头函数:
+				var fn = (a,b) =>a+b
+			//4 
+				var fn = function(){
+					var a = 2;
+					var b = a+1;
+					return b;
+				}
+			//4-ES6箭头函数：
+				var fn = ()=>{
+					var a = 2;
+					var b = a+1;
+					return b;
+				}
+			*/
+			//********1*********
+				/*var fn = ()=>alert(this)
+				fn()*/
+			//******************
+			
+			//********2**********
+				/*document.onclick = fn2;
+				function fn2(){
+					var fn = () =>alert(this) -->document
+					fn()
+				}*/
+			//******************
+			
+			//*********3**********
+				/*document.onclick = fn2;
+				function fn2(){
+					var fn = () =>alert(this)
+					fn()
+				}
+				new fn2;*/ //-->fn2这个对象(object)
+			//*******************
+			
+			//*********4*********
+				document.onclick = () =>alert(this)  -->window
+				//本来来想用this来代替当前对象，可是此时的this却谈window
+			//*******************
+			
+		</script>
+	</body>
+</html>
