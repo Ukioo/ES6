@@ -115,6 +115,96 @@
 					}catch(e){
 						//上面代码报错，那么就走catch，e报错的细节信息。
 					}
+		9.ES6字符串处理方法：
+			1.includes()
+			2.startsWith()：返回布尔值，表示参数字符串是否在源字符串的头部。
+			3.endsWith()：返回布尔值，表示参数字符串是否在源字符串的尾部。
+				var str = 'abckdiei'
+				console.log(str.startsWith('a'));
+				console.log(str.endsWith('i'))
+				console.log(str.includes('a'))
+		10.ES6数字处理方法：
+			1.number.isNaN
+				//widndow的isNaN和Number.isNaN的区别
+				与isNaN的区别:
+				Number.isNaN不会通过Number去转，括号中的条件必须满足NaN,才会是true
+					alert(isNaN({}))  ->true
+					alert(Number.isNaN({})) ->false
+		
+			2.Number.MAX_VALUE  
+				计算机处理的最大的数字，超过这个值就是正无穷大。
+			3.Math.trunc(4.1) 
+				抹小数 在正数的时候可以当做向下取整来用
+			4.Math.cbrt方法用于计算一个数的立方根。
+			
+		11.ES6数组的处理方法:
+			1.Array.of方法用于将一组值，转换为数组。 
+			2...
+				a...arr->把数组的每一项都找出来
+					例：	var arr = [1,2,3,4]
+						console.log(...arr) ->1 2 3 4不支持  typeof，但值是number类型
+			3.Set中不允许有重复项，最大的优点
+				例：var arr = [1,2,3,4,3,2,2]
+					console.log(...new Set(arr))  1 2 3 4 可用于数组去重，但返回值不是数组，是数字
+			4.数组中的最大、小值的求法
+				var arr = [1,2,3,6,4,5,7,88,22,4,8];
+				var max = Math.max.apply(null,arr);
+				var min = Math.min.apply(null,arr);
+			5.数组的遍历：返回值是**遍历**的对象
+				a.for...of：循环遍历数组
+				注：以下三个是数组的方法
+				var arr = [1,2,3,4,3,2,2]
+				b.entries()：是对键值对的遍历
+					for(var [k,v] of arr.entries()){
+						console.log(k,v)
+					}
+				c.keys():对键的遍历
+					for(var [k,v] of arr.entries()){
+						console.log(k,v)
+					}
+				d.values():对值的遍历	**目前暂不支持**
+		12.Symbol:它是 JavaScript 语言的第七种数据类型，前六种是：undefined、null、布尔值（Boolean）、字符串（String）、数值（Number）、对象（Object）。
+			注：
+				a.Symbol()作为函数使用时，前不能用new 定义，会报错
+					如果Symbol(obj),参数是Object类型，那么Symbol()在执行时就会先自行(偷偷)调用toString方法，后返回值
+					Symbol函数的参数只是表示对当前 Symbol 值的描述，因此相同参数的Symbol函数的返回值是不相等的。
+					Symol不可以使用Number类型转换，但是String和Boolean可以
+				b.Symbol()作为属性,由于它的值是独一无二的，所以它可以作为属性使用，作为属性不可以用.要用[]	
+					var mySym = Symbol();
+					var obj = {}
+					obj[mySym] = 'a';
+					console.log(obj)	//Object {Symbol(): "a"}
+				c.Object.defineProperty，将对象的属性名指定为一个 Symbol 值。
+			实例:消除魔术字符串
+		13.Iterator:
+			作用：一是为各种数据结构，提供一个统一的、简便的访问接口；
+				   二是使得数据结构的成员能够按某种次序排列；
+				   三是ES6创造了一种新的遍历命令for...of循环，Iterator接口主要供for...of消费
+			过程：
+				（1）创建一个指针对象，指向当前数据结构的起始位置。也就是说，遍历器对象本质上，就是一个指针对象。
+				（2）第一次调用指针对象的next方法，可以将指针指向数据结构的第一个成员。
+				（3）第二次调用指针对象的next方法，指针就指向数据结构的第二个成员。
+				（4）不断调用指针对象的next方法，直到它指向数据结构的结束位置。
+				每一次调用next方法，都会返回数据结构的当前成员的信息。具体来说，就是返回一个包含**value**和**done**两个属性的对象。
+				其中，value属性是当前成员的值，done属性是一个布尔值，表示遍历是否结束。
+			语法：Symbol(Symbol.iterator) 遍历器
+					function [Symbol.iterator](){
+					//遍历函数
+					return {
+							next(){
+								return {
+									value:xxx,
+									done:boolean (如果是false要循环，true终止循环)
+								}
+								
+							}
+					}
+					
+					
+				}
 		-->
+		<script type="text/javascript">
+			
+		</script>
 	</body>
 </html>
