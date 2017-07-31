@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<!--
+			AMD:异步模式，基于浏览器->前端比较倾向
+			CMD:同步模式,基于服务器.是属于CommonJS标准的
+			模块化：先拆再组合
+			
+		一、ES6:**模块化**的的组成部分-> export import
+				1.export:导出
+				2.import:导入
+				as:重命名(输出相同变量名可以重命名)
+			1.export导出的写法：
+				1.export function fn(x1,x2){
+					
+				}
+				2.functioin fn(x1,x2){}
+				export{fn}
+			注：输出变量名或有名函数时要用花括号->{}包起来
+			
+			2.import导入：
+				1.import {firstName, lastName, year} from './profile';
+								||
+					import{firstName} from './profile';
+					imort{lastName} from '.profile'
+					解：import命令，用于加载profile.js文件，并从中输入变量,花括号里面的变量名要与导入profile.js文件里的变量名相同
+				2.import { lastName as surname } from './profile';->重命名变量
+			注：import..from 后边不能加变量名，只能是字符串
+			3.当导出使用defult(导入的时候可以不加括号，并且名字随便取)
+				export default function(){
+					console.log('foo')->.profile里的foo
+				}
+				import pp from '.profile',导入的时候可以不加括号，并且名字随便取
+			注：ES6的模块化的语法浏览器不支持，通过babel去转一下->将ES6转成ES5
+				babel属于webpack,webpack是基于Node.js
+						
+		二、node.js是基于JaveScript的->开发后端的语言
+		三、ES6转ES5步骤：
+		webpack:
+			初始化构建：进入项目文件夹
+				1.npm init(初始化项目)
+				2.npm i webpack -S	->在项目文件夹中安装webpack
+				3.命令行输入：npm install --save-dev babel-loader babel-core babel-preset-env webpack
+				4.在要操作的文件夹中新建：webpack.config.js文件，进入：
+					配置：1.
+						const path = require('path');	//只要在node_modlue中就不用加./
+						 2.
+						 module.exports = {
+							//所有的文件都被这个文件所管理
+							//1.入口
+							entry:{
+								//app这个名字可以随便起
+								app:'./2'
+							},
+							//2.出口
+							output:{
+												__dirname：当前目录
+												//双_
+								path:path.resolve(__dirname,'build'),
+								//ES6转ES5的名字
+								//[name]就是entry里边的app
+								filename:'[name].js'
+							},
+							//3.模块
+							module:{
+								rules:[
+									{
+										test:/\.js$/,
+										use:{
+											loader:'babel-loader',
+											options:{
+												presets:['env']
+											}
+										}
+									}
+								]
+							}
+						}
+				
+				4.在package.json里的scripts里test后面(先加,回车)输入"dev":"webpack"
+				5.npm run dev  ->run后会出先build文件夹
+				6.在index.html文件中src引入build文件夹中的js文件
+			注：添加其他模块：
+				例：1.在同级目录下添加style.css文件
+					2.在入口文件中require('./style.css')
+					3.在命令行：
+						npm install --save-dev css-loader
+						npm install --save-dev style-loader
+					4.在webpack.config.js的rule里边添加一个对象
+						{
+							test:/\.css$/,
+							use:[
+								{loader:"style-loader"},
+								{loader:"css-loader"}
+							]
+						}
+			三.2:分离css
+				1.npm i extract-text-webpack-plugin --save
+				2.在webpack.config.js里面：
+					2.1 const css = require('extract-text-webpack-plugin');
+					2.在rules里边替换上一个css对象：
+					{
+						test:/\.css$/,
+						use
+					}
+					3.plugins:[
+						new css('app.css') ->build里面的文件
+					]
+				3.html模板：
+					3.1  npm install html-webpack-plugin --save-dev 
+					3.2	const html = require('html-webpack-plugin');
+					3.3 plugins:[
+							new html({
+								filename:'1.html',
+								templete:'index.html'
+							})
+						]
+			总结：1.在设置之前要安装，也就是各种 npm install->查看package.json里的变化，一般安装完里边都有对应的名称数据
+				  2.在webpack.config.js里边设置 
+				  	2.1 创建
+				  	2.2 在rudle里面设置
+			注：如果由于node_moudles过大，所有项目里可能没有，需要在使用前 npm i || npm install
+		-->
+	</body>
+</html>
