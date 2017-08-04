@@ -202,9 +202,43 @@
 					
 					
 				}
+			返回值：Object {value: xx, done: false/true}
+		14.Generator:
+			当调用Generator函数的时候，函数内的代码不会执行,返回值也不是内部的运行结果，而是一个指针对应，需要通过next()方法来运行函数
+			yield必须要在Generator(*)定义的函数中用,将fn变成了遍历工具通过next()查看返回值，返回值即是yield后面的值
+			例：function *fn(){
+					yield 3;
+					yield 5
+					return 6
+				}
+				var w = fn()
+				console.log(w.next()); //->Object {value: 3, done: false}
+				console.log(w.next());	//->Object {value: 5, done: false}
+				console.log(w.next());	//->Object {value: 6, done: true}
+				
+		15.promise:
+			Promis对象代表一个**异步**操作，且有三种状态：
+				Pending(进行中)
+				Resovled(已完成，又称Fullfill)
+				Reject(失败)
+			var pro = new Promise(function(resolve,reject){
+				resovle()->成功
+				reject()->失败
+			})
+		注：2.new Promise后返回的对象pro 	
+			1.then(function(){成功(resovle())},function(reject()){})
+			2.可以调用then方法，即成功要执行的代码，如果想分开写可以调用catch即为失败要执行的代码
 		-->
 		<script type="text/javascript">
-			
+			function *fn(){
+				yield 3;
+				yield 5
+				return 6
+			}
+			var w = fn()
+			console.log(w.next()); //->Object {value: 3, done: false}
+			console.log(w.next());	//->Object {value: 5, done: false}
+			console.log(w.next());	//->Object {value: 6, done: true}
 		</script>
 	</body>
 </html>
